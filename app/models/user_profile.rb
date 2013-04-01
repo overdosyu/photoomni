@@ -8,8 +8,8 @@ class UserProfile < ActiveRecord::Base
       :size_25_by_25 => "25x25#" },
     :storage => :s3,
     :s3_credentials => "#{Rails.root}/config/s3.yml",
-    :path => "user_profile/avatar/:style/:id/:filename"
-    #, :default_url => "/images/:style/missing.png"
+    :path => "user_profile/avatar/:style/:id/:filename",
+    :default_url => "user_profile/avatar/:style/missing.png"
 
 
   def full_name

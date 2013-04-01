@@ -12,7 +12,7 @@
           - if current_user
             %li.dropdown#account-menu
               %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#account-menu"}
-                = image_tag current_user.avatar.present? ? current_user.avatar.url(:size_25_by_25).to_s : "missing.png"
+                = image_tag current_user.avatar.url(:size_25_by_25).to_s
                 &nbsp;
                 = current_user.display_name
                 %b.caret
