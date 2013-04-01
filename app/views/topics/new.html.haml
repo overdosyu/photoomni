@@ -1,0 +1,30 @@
+.container_for_posts
+  %h3 New Topic
+
+  = form_for @post, url: { :action => 'create', :controller => 'topics' } do |f|
+    %table
+      %tr
+        %td{:colspan => "2"}
+          .field
+            = f.text_field :title, :placeholder => 'name a title'
+      %tr
+        %td{:valign => "top"}
+          .author_avatar= image_tag current_user.avatar.url(:size_150_by_150).to_s
+
+        %td
+          .field
+            = f.text_area :content, :placeholder => 'write some content'
+
+          .field
+            = f.label :photo
+            = f.file_field :photo, :onchange => 'readPhoto(this);'
+
+          %br
+          = image_tag " ", :id => 'post_photo_preview'
+
+          %br
+          %br
+          %p
+            %button.btn.btn-primary{:type => "submit"} Create New Topic
+
+

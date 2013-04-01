@@ -1,0 +1,11 @@
+- flash.each do |type, message|
+  %div{:class => "alert #{bootstrap_flash_type(type)} fade in"}
+    %button.close{"data-dismiss" => "alert"} ×
+    = message
+
+:css
+  .alert {
+    position: absolute;
+    width: 450px;
+    top: -50px;
+  }

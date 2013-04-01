@@ -1,0 +1,9 @@
+%h1 Edit Post
+= image_tag @post.photo.url(:size_640_by).to_s
+= form_for @post, url: { :action => 'update', :controller => 'posts' } do |f|
+  = render partial: 'form', locals: { :f => f }
+  %br
+  %br
+  %p
+    %button.btn.btn-primary{:type => "submit"} Post
+

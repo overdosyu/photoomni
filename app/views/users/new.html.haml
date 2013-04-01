@@ -1,0 +1,16 @@
+.container_for_user_info
+  %h3 Sign Up
+  = form_for @user do |f|
+    .field
+      = f.label :email
+      = f.text_field :email
+    .field
+      = f.label :password
+      = f.password_field :password
+    .field
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+    %br
+    %p
+      %button.btn.btn-primary{:type => "submit"} Sign up
+

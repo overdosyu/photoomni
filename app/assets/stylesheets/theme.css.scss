@@ -1,0 +1,79 @@
+.container_for_user_info {
+  width: 500px;
+  margin-bottom: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
+
+
+.container_for_posts {
+  width: 640px;
+  margin-bottom: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
+.container_for_posts table {
+  margin-bottom: 30px;
+}
+
+.container_for_posts .author_avatar {
+  width: 75px;
+  margin-right: 10px;
+}
+
+.container_for_posts .author_name {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.container_for_posts .photo {
+  width: 530px;
+  margin-bottom: 10px;
+}
+
+.container_for_posts .content {
+  margin-bottom: 5px;
+}
+
+.container_for_posts .created_at {
+  color: gray;
+}
+
+// post edit page
+.container_for_posts textarea#post_content {
+  width: 530px;
+  height: 150px;
+}
+
+.container_for_posts #post_photo_preview {
+  width: 540px;
+}
+
+
+
+.pinned_footer {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.8);
+  bottom: 0px;
+  width: 100%;
+}
+
+.pinned_footer .content {
+  color: white;
+  margin: 5px auto;
+  width: 800px;
+}
+
+
+
+#posts_container {
+  margin-bottom: 100px;
+}
+
+footer {
+  margin-bottom: 50px;
+}

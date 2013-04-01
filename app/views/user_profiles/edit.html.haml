@@ -1,0 +1,115 @@
+.container_for_user_info
+  = render partial: "/shared/flash_messages", flash: flash
+
+  %h3 My Profile
+
+  = form_for(@user_profile, :html => { :multipart => true }) do |f|
+    %table
+      %tr
+        %td
+          .user_profile_avatar_block
+            = image_tag @user_profile.avatar.url(:size_150_by_150).to_s, :id => 'user_profile_avatar'
+            %span.user_profile_avatar_desc Change Avatar
+          = f.file_field :avatar, :class => 'hidden', :id => 'user_profile_avatar_upload', :onchange => 'readAvatar(this);'
+
+          %h4= @user_profile.full_name
+        %td
+          .field
+            = f.label :first_name
+            = f.text_field :first_name
+
+          .field
+            = f.label :last_name
+            = f.text_field :last_name
+
+          %br
+          %p
+            %button.btn.btn-primary{:type => "submit"} Update
+            %a.btn{:href => "#"} Link with Facebook
+
+  %br
+
+  .tabbable.tabs-left
+    %ul.nav.nav-tabs
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#my_topics"} Topics
+      %li
+        %a{"data-toggle" => "tab", :href => "#my_posts"} Posts
+      %li
+        %a{"data-toggle" => "tab", :href => "#my_settings"} Settings
+    .tab-content
+      #my_topics.tab-pane.active
+        %p
+          %ul
+            - @current_user.topics.each do |topic|
+              %li
+                %a{:href => topic.url}= "[#{topic.title}]"
+      #my_posts.tab-pane
+        %p
+          %ul
+            - @current_user.posts.each do |post|
+              %li
+                %a{:href => post.url}= "[#{post.title}] #{post.content.truncate(30)}"
+      #my_settings.tab-pane
+        %p Coming Soon!!
+
+
+:javascript
+  $(function() {
+    $('.user_profile_avatar_block').click(function() {
+      $('#user_profile_avatar_upload').click();
+    });
+
+    $('.user_profile_avatar_block').mouseover(function() {
+      $('.user_profile_avatar_desc').show();
+    });
+
+    $('.user_profile_avatar_block').mouseout(function() {
+      $('.user_profile_avatar_desc').hide();
+    });
+  });
+
+  function readAvatar(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('#user_profile_avatar').attr('src', e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+:css
+  .container_for_user_info {
+    position: relative;
+  }
+
+  .container_for_user_info td {
+    padding-right: 30px;
+    vertical-align: top;
+  }
+
+  #user_profile_avatar {
+    width: 150px;
+    height: 150px;
+  }
+
+  .user_profile_avatar_desc {
+    background: rgba(0, 0, 0, 0.5);
+    bottom: 0;
+    color: #fff;
+    display: none;
+    line-height: 40px;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .user_profile_avatar_block {
+    cursor: pointer;
+    width: 150px;
+    position: relative;
+  }
+

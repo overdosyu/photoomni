@@ -1,0 +1,13 @@
+.container_for_user_info
+  %h3 Sign In
+  = form_for @user_session do |f|
+    .field
+      = f.label :email
+      = f.text_field :email
+    .field
+      = f.label :password
+      = f.password_field :password
+    %br
+    %p
+      %button.btn.btn-primary{:type => "submit"} Sign In
+

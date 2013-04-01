@@ -1,0 +1,66 @@
+.topic= @post.title
+
+.post
+  .user_info
+    .avatar
+    .name= @post.user.display_name
+    .tools
+      %a.btn{:href => new_topic_post_path(@post.topic.id)} Reply
+  .content
+    = image_tag @post.photo.url(:size_640_by).to_s
+    %p= @post.content
+
+:css
+  .topic {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 30px;
+    position: relative;
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  .post {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .post .user_info {
+    background: rgb(200, 200, 200);
+    border-radius: 5px 5px 5px 5px;
+    color: black;
+    min-height: 100px;
+  }
+
+  .post .user_info .name {
+    font-size: 24px;
+    margin-left: 135px;
+    margin-top: 14px;
+    display: inline-block;
+  }
+
+  .post .user_info .avatar {
+    background: url("#{@post.user.avatar.url(:size_150_by_150).to_s}") no-repeat scroll 0% 0% / cover transparent;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+    height: 120px;
+    position: absolute;
+    top: -10px;
+    width: 120px;
+  }
+
+  .post .user_info .tools {
+    right: 10px;
+    position:absolute;
+    margin-top: 14px;
+    display: inline-block;
+  }
+
+  .post .content {
+    font-size: 18px;
+    margin-top: 25px;
+    line-height: 1.5em;
+  }
+

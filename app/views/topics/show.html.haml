@@ -1,0 +1,21 @@
+.container_for_posts
+  %h3= @topic.title
+
+  - @topic.posts.each do |post|
+    %table
+      %tr
+        %td{:valign => "top"}
+          .author_avatar= image_tag post.user.avatar.url(:size_150_by_150).to_s
+        %td
+          .author_name
+            %a{:href => "#"}= post.user.display_name
+          - if post.photo_file_name.present?
+            .photo= image_tag post.photo.url(:size_640_by).to_s
+          .content= post.content
+          .created_at= post.created_at.strftime("%B %d, %Y at %I:%M%p")
+
+.pinned_footer
+  .content
+    = 'Show your PS talent to the world!! '
+    &nbsp;&nbsp;
+    %a.btn.btn-primary{:href => new_topic_post_path(@topic.id)} Post for This Topic

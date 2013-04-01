@@ -1,0 +1,24 @@
+.container.content
+  #posts_container
+    - @posts.each do |post|
+      .post_container
+        .thumbnail
+          = image_tag post.photo.url(:size_300_by).to_s
+          .caption
+            %h3= post.title
+            %p= post.content
+            %p
+              %a.btn.btn-primary{:href => post.topic.url} Show
+              %a.btn{:href => "#"}Action
+
+.pinned_footer
+  .content
+    = 'Post your photo and ask some experts PS it for you for FREE!! '
+    &nbsp;&nbsp;
+    %a.btn.btn-primary{:href => new_topic_path} Create New Topic
+
+
+
+:css
+  .post_container {
+    margin-bottom: 10px;
