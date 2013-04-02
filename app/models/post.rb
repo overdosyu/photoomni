@@ -14,7 +14,8 @@ class Post < ActiveRecord::Base
       :size_300_by => "300x" },
     :storage => :s3,
     :s3_credentials => "#{Rails.root}/config/s3.yml",
-    :path => "post/photo/:style/:id/:filename"
+    :path => "post/photo/:style/:id/:filename",
+    :default_url => "post/photo/:style/missing.png"
 
 
   def url

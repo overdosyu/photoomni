@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   delegate :avatar, to: :user_profile, :allow_nil => true
 
+  before_create :build_default_user_profile
+
   acts_as_authentic
 
   def display_name
@@ -18,4 +20,11 @@ class User < ActiveRecord::Base
       email
     end
   end
+
+  private
+  def build_default_user_profile
+    build_user_profile
+    true
+  end
+
 end
