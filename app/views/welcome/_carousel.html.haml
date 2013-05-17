@@ -1,0 +1,31 @@
+#myCarousel.carousel.slide
+  %ol.carousel-indicators
+    %li.active{"data-slide-to" => "0", "data-target" => "#myCarousel"}
+    %li{"data-slide-to" => "1", "data-target" => "#myCarousel"}
+    %li{"data-slide-to" => "2", "data-target" => "#myCarousel"}
+  / Carousel items
+  .carousel-inner
+    .item.active
+      =image_tag "http://twitter.github.com/bootstrap/assets/img/examples/slide-01.jpg"
+      .container
+        .carousel-caption
+          %h1 Ask someone Photoshop for you
+          %p.lead Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+          %a.btn.btn-large.btn-primary{:href => new_user_path} Sign Up today
+    .item
+      =image_tag "http://twitter.github.com/bootstrap/assets/img/examples/slide-02.jpg"
+      .container
+        .carousel-caption
+          %h1 Show your Photoshop talent to the world!!
+          %p.lead Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+          %a.btn.btn-large.btn-primary{:href => new_user_path} Sign Up today
+    .item
+      =image_tag "http://twitter.github.com/bootstrap/assets/img/examples/slide-03.jpg"
+      .container
+        .carousel-caption
+          %h1 One more for good measure.
+          %p.lead Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+          %a.btn.btn-large.btn-primary{:href => new_user_path} Sign Up today
+  / Carousel nav
+  %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
+  %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;

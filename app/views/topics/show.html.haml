@@ -8,14 +8,74 @@
           .author_avatar= image_tag post.user.avatar.url(:size_150_by_150).to_s
         %td
           .author_name
-            %a{:href => "#"}= post.user.display_name
+            %a{:href => user_profile_path(post.user.profile.id)}= post.user.display_name
           - if post.photo_file_name.present?
             .photo= image_tag post.photo.url(:size_640_by).to_s
           .content= post.content
-          .created_at= post.created_at.strftime("%B %d, %Y at %I:%M%p")
+          .post_footer
+            .created_at= post.created_at.strftime("%B %d, %Y at %I:%M%p")
+            - if can_be_liked?(post)
+              .middot ·
+              .like{:id => "post_#{post.id}_like"}
+                - if like?(post)
+                  = link_to "Unlike", post_likes_path(:post_id => post.id), :method => :delete, :remote => true
+                - else
+                  = link_to "Like", post_likes_path(:post_id => post.id), :method => :post, :remote => true
+            .middot ·
+            .like_count{:id => "post_#{post.id}_like_count"}= link_to "#{like_count(post)} Like", "javaScript:void(0);"
+          - if can_be_reviewed?(post)
+            = render partial: "/post_reviews/form", locals: { post: post }
+
+
 
 .pinned_footer
   .content
     = 'Show your PS talent to the world!! '
     &nbsp;&nbsp;
     %a.btn.btn-primary{:href => new_topic_post_path(@topic.id)} Post for This Topic
+
+:css
+  form.post_review span.rating {
+    cursor: pointer;
+    height: 25px;
+    width: 20px;
+    float: left;
+
+    background-image: url(/assets/star-dim.gif);
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+  }
+
+  form.post_review span.rating.bright {
+    background-image: url(/assets/star-bright.png);
+  }
+
+:javascript
+  function set_stars(this_span) {
+    this_span.prevAll().andSelf().addClass('bright');
+    this_span.nextAll().removeClass('bright');
+  }
+
+  $(document).ready(function() {
+    // After page loaded, set the stars.
+    $('.post_review').each(function() {
+      var rating = $(this).find('input[id="post_review_rating"]').val();
+      var this_span = $(this).find('span[value = "' + rating + '"]');
+
+      set_stars(this_span);
+    });
+
+    // After click,
+    // 1) Set the stars.
+    // 2) Set post_review[rating].
+    // 3) Submit form.
+    $('form.post_review > span').click(function() {
+      var this_form = $(this).closest("form");
+      var rating = $(this).attr('value');
+
+      set_stars($(this));
+      this_form.find('input[id="post_review_rating"]').val(rating);
+      this_form.submit();
+    });
+  });

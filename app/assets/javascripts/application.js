@@ -24,15 +24,29 @@ $(function () {
       gutterWidth : 10,
     });
   });
-});
 
+  $('.post-photo-block').click(function() {
+    $('#post-photo-upload').click();
+  });
+
+  $('.post-photo-block').mouseover(function() {
+    $('.post-photo-desc').show();
+  });
+
+  $('.post-photo-block').mouseout(function() {
+    $('.post-photo-desc').hide();
+  });
+
+});
 
 function readPhoto(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
     reader.onload = function(e) {
-      $('#post_photo_preview').attr('src', e.target.result);
+      $('#post-photo').attr('src', e.target.result);
     };
     reader.readAsDataURL(input.files[0]);
   }
 }
+
+

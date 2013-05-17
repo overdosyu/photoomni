@@ -1,24 +1,37 @@
+- unless current_user
+  = render partial: "carousel"
+
 .container.content
   #posts_container
     - @posts.each do |post|
       .post_container
         .thumbnail
-          = image_tag post.photo.url(:size_300_by).to_s
+          = link_to(image_tag(post.photo.url(:size_300_by).to_s), post.topic.url)
           .caption
-            %h3= post.title
+            %h3= link_to post.title, post.topic.url
             %p= post.content
-            %p
-              %a.btn.btn-primary{:href => post.topic.url} Show
-              %a.btn{:href => "#"}Action
+            .post_footer
+              - if can_be_liked?(post)
+                .like{:id => "post_#{post.id}_like"}
+                  - if like?(post)
+                    = link_to "Unlike", post_likes_path(:post_id => post.id), :method => :delete, :remote => true
+                  - else
+                    = link_to "Like", post_likes_path(:post_id => post.id), :method => :post, :remote => true
+                .middot ·
+              .like_count{:id => "post_#{post.id}_like_count"}= link_to "#{like_count(post)} Like", "javaScript:void(0);"
 
-.pinned_footer
-  .content
-    = 'Post your photo and ask some experts PS it for you for FREE!! '
-    &nbsp;&nbsp;
-    %a.btn.btn-primary{:href => new_topic_path} Create New Topic
-
-
+- if current_user
+  .pinned_footer
+    .content
+      = 'Post your photo and ask some experts PS it for you for FREE!! '
+      &nbsp;&nbsp;
+      %a.btn.btn-primary{:href => new_topic_path} Create New Topic
 
 :css
   .post_container {
     margin-bottom: 10px;
+  }
+
+  a:hover {
+    text-decoration:none;
+  }

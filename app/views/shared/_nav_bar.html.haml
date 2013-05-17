@@ -5,7 +5,9 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.brand{:href => root_path} photo_omni
+      %a.brand{:href => root_path}
+        = image_tag 'logo_reverse.png', :class => 'logo'
+        = "photo_omni"
       .nav-collapse
         / sign up/in/out
         %ul.nav.pull-right

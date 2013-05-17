@@ -1,0 +1,2 @@
+$("#post_#{@post.id}_like").html("#{escape_javascript(link_to("Like", post_likes_path(:post_id => @post.id), :method => :post, :remote => true))}");
+$("#post_#{@post.id}_like_count").html("#{like_count(@post)} Like");

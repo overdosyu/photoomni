@@ -1,0 +1,10 @@
+= form_for(review_object(post.id), :remote => true, :html => { :class => 'post_review' }) do |f|
+  - (1..5).each do |i|
+    %span.rating{:value => "#{i}", :id => "#{post.id}_#{i}"}
+
+  = hidden_field_tag("post_review[rating]", review_rating(post))
+  = hidden_field_tag("post_id", post.id)
+
+
+
+

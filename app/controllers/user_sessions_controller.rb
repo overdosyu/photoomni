@@ -13,6 +13,7 @@ class UserSessionsController < ApplicationController
       # redirect_back_or_default root_url
       redirect_to root_url
     else
+      p 'aaaaaaaaa'
       flash[:error] = "Cannot find email or wrong password!"
       render :action => :new
     end

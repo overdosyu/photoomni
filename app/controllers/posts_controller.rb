@@ -1,9 +1,5 @@
 class PostsController < ApplicationController
-  before_filter :get_topic, only: [:new, :update, :create]
-
-  # def index
-  #   @posts = Post.all
-  # end
+  before_filter :find_topic, only: [:new, :edit, :update, :create]
 
   def new
     @post = Post.new
@@ -21,7 +17,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.update_attributes(params[:post])
 
-    redirect_to :action => :show, :id => @post
+    redirect_to :controller => :topics, :action => :show, :id => @topic.id
   end
 
   def create
@@ -36,7 +32,7 @@ class PostsController < ApplicationController
 
   private
 
-  def get_topic
+  def find_topic
     @topic = Topic.find(params[:topic_id])
   end
 end

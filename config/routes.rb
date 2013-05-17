@@ -2,7 +2,7 @@ Photoomni::Application.routes.draw do
   root to: "welcome#index"
 
   resources :users, only: [:new, :create]
-  resources :user_profiles, only: [:edit, :update]
+  resources :user_profiles, only: [:edit, :update, :show]
 
   resources :user_sessions, only: [:new, :create, :destroy]
   get  'sign_in'  => 'user_sessions#new'
@@ -13,6 +13,8 @@ Photoomni::Application.routes.draw do
     resources :posts
   end
 
+  resources :post_reviews
+  resource :post_likes # without :id in routes
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

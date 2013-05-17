@@ -1,5 +1,9 @@
 class UserProfilesController < ApplicationController
-  before_filter :find_or_create_user_profile, only: [:edit, :update]
+  before_filter :find_or_create_current_user_profile, only: [:edit, :update]
+
+  def show
+    @user_profile = UserProfile.find(params[:id])
+  end
 
   def edit
   end
@@ -15,7 +19,7 @@ class UserProfilesController < ApplicationController
 
   private
 
-  def find_or_create_user_profile
+  def find_or_create_current_user_profile
     @user_profile = UserProfile.find_or_create_by_user_id(current_user.id)
   end
 

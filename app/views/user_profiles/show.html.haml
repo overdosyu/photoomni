@@ -1,0 +1,94 @@
+.container-for-user-info
+  - user = @user_profile.user
+
+  %h3= "#{@user_profile.first_name}'s Profile"
+
+  .tabbable.tabs-left
+    %ul.nav.nav-tabs
+      %li
+        .user-highlight
+          = image_tag @user_profile.avatar.url(:size_150_by_150).to_s
+          %h4= @user_profile.full_name
+          .rating-wrapper
+            - (1..5).each do |i|
+              %span.rating{:value => "#{i}"}
+          %br
+          %br
+          .likes-wrapper= "#{user.likes_count} likes"
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#user-gallery"} Gallery
+      %li
+        %a{"data-toggle" => "tab", :href => "#user-topics"} Topics
+      %li
+        %a{"data-toggle" => "tab", :href => "#user-posts"} Posts
+    .tab-content
+      #user-gallery.tab-pane.active
+        %p
+          %ul
+            #posts_container
+              - user.posts.each do |post|
+                - if post.photo.present?
+                  .post_container
+                    .thumbnail
+                      = image_tag post.photo.url(:size_300_by).to_s
+      #user-topics.tab-pane
+        %p
+          %ul
+            - user.topics.each do |topic|
+              %li
+                %a{:href => topic.url}= "[#{topic.title}]"
+      #user-posts.tab-pane
+        %p
+          %ul
+            - user.posts.each do |post|
+              %li
+                %a{:href => post.url}= "[#{post.title}] #{post.content.truncate(30)}"
+
+:css
+  .container-for-user-info {
+    width: 980px;
+  }
+
+  .container-for-user-info td {
+    padding-right: 30px;
+    vertical-align: top;
+  }
+
+  .user-highlight {
+    margin-bottom: 20px;
+  }
+
+  .rating-wrapper {
+    margin-left: 20px;
+  }
+
+  .rating-wrapper span.rating {
+    height: 25px;
+    width: 20px;
+    float: left;
+
+    background-image: url(/assets/star-dim.gif);
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+  }
+
+  .rating-wrapper span.rating.bright {
+    background-image: url(/assets/star-bright.png);
+  }
+
+  .likes-wrapper {
+    margin-left: 20px;
+  }
+
+  .post_container {
+    margin-bottom: 10px;
+  }
+
+:javascript
+  $(document).ready(function() {
+    // After page loaded, set the stars.
+    var this_span = $('.rating-wrapper').find('span[value = "#{user.rating}"]');
+    this_span.prevAll().andSelf().addClass('bright');
+    this_span.nextAll().removeClass('bright');
+  });

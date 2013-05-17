@@ -1,7 +1,32 @@
-.field
-  = f.label :content
-  = f.text_area :content
+= form_for @post, url: { :action => action, :controller => controller } do |f|
+  %table
+    %tr
+      %td{:colspan => "2"}
+        - if controller == 'topics'
+          .field
+            = f.text_field :title, :placeholder => 'name a title'
+        - else
+          %h3= @topic.title
+    %tr
+      %td{:valign => "top"}
+        .author_avatar= image_tag current_user.avatar.url(:size_150_by_150).to_s
 
-.field
-  = f.label :photo
-  = f.file_field :photo
+      %td
+        .field
+          = f.text_area :content, :placeholder => 'write some content'
+
+        %br
+        .post-photo-block
+          = image_tag @post.photo.url(:size_640_by).to_s, :id => 'post-photo'
+          %span.post-photo-desc Upload Photo
+        = f.file_field :photo, :class => 'hidden', :id => 'post-photo-upload', :onchange => 'readPhoto(this);'
+
+        %br
+        %br
+        - if action == 'create' && controller == 'topics'
+          %button.btn.btn-primary{:type => "submit"} Create New Topic
+        - elsif action == 'create' && controller == 'posts'
+          %button.btn.btn-primary{:type => "submit"} Post
+        - elsif action == 'update' && controller == 'posts'
+          %button.btn.btn-primary{:type => "submit"} Update Post
+
