@@ -22,9 +22,9 @@
                 %li= link_to "My Profile", edit_user_profile_path(current_user.id), id: "my_profile"
                 %li= link_to "New Topic", new_topic_path, id: "new_topic"
                 %li.divider
-                %li= link_to "Sign out", sign_out_path, id: "sign_out"
+                %li= link_to "Sign out", destroy_user_session_path, id: "sign_out"
           - else
-            %li= link_to "Sign Up", new_user_path, id: "sign_up"
+            %li= link_to "Sign Up", new_user_registration_path, id: "sign_up"
             %li.divider-vertical
-            %li= link_to "Sign In", sign_in_path, id: "sign_in"
+            %li= link_to "Sign In", new_user_session_path, id: "sign_in"
 

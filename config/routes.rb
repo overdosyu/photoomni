@@ -1,13 +1,15 @@
 Photoomni::Application.routes.draw do
+  devise_for :users
+
   root to: "welcome#index"
 
-  resources :users, only: [:new, :create]
+  # resources :users, only: [:new, :create]
   resources :user_profiles, only: [:edit, :update, :show]
 
-  resources :user_sessions, only: [:new, :create, :destroy]
-  get  'sign_in'  => 'user_sessions#new'
-  post 'sign_in'  => 'user_sessions#create'
-  get  'sign_out' => 'user_sessions#destroy'
+  # resources :user_sessions, only: [:new, :create, :destroy]
+  # get  'sign_in'  => 'user_sessions#new'
+  # post 'sign_in'  => 'user_sessions#create'
+  # get  'sign_out' => 'user_sessions#destroy'
 
   resources :topics do
     resources :posts
