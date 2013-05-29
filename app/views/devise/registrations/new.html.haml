@@ -1,10 +1,8 @@
 .container-for-user-info
-  = render partial: "/shared/flash_messages", flash: flash
+  = devise_error_messages!
 
   %h3 Sign up
   = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-    = devise_error_messages!
-
     .field
       = f.label :email
       = f.text_field :email, :autofocus => true
@@ -20,3 +18,4 @@
       %button.btn.btn-primary{:type => "submit"} Sign up
 
   = render "devise/shared/links"
+
