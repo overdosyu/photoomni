@@ -3,9 +3,10 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :lockable, :timeoutable, :confirmable, and :activatable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  devise :omniauthable, :omniauth_providers => [:facebook]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation
+  attr_accessible :email, :password, :password_confirmation, :provider, :uid
 
   has_one :user_profile, dependent: :destroy
   has_many :topics
@@ -53,6 +54,30 @@ class User < ActiveRecord::Base
       end
     end
     count
+  end
+
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    unless user
+      # name: auth.extra.raw_info.name,
+      user = User.create(provider: auth.provider,
+                         uid: auth.uid,
+                         email: auth.info.email,
+                         password: Devise.friendly_token[0,20])
+    end
+
+    p auth.extra.raw_info
+
+    user.profile.update_attributes(:first_name => auth.extra.raw_info.first_name, :last_name => auth.extra.raw_info.last_name)
+    user
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
   end
 
   private

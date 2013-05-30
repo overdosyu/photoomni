@@ -4,6 +4,9 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in DeviseMailer.
   config.mailer_sender = "please-change-me@config-initializers-devise.com"
 
+  require "omniauth-facebook"
+  config.omniauth :facebook, "463692490380685", "c2c6833bf256f68064c84247ca13ba65"
+
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating an user. By default is
   # just :email. You can configure it to use [:username, :subdomain], so for

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130528214813) do
+ActiveRecord::Schema.define(:version => 20130529212852) do
 
   create_table "post_likes", :force => true do |t|
     t.integer  "post_id"
@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(:version => 20130528214813) do
     t.string   "last_sign_in_ip"
     t.integer  "failed_attempts",        :default => 0
     t.datetime "reset_password_sent_at"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
