@@ -16,4 +16,18 @@ class UserProfile < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def avatar_url(size)
+    if !avatar.present? && self.user.provider == "facebook"
+      width_and_height = case size
+      when :size_25_by_25
+        "width=25&height=25"
+      else
+        "width=150&height=150"
+      end
+      "https://graph.facebook.com/#{self.user.uid}/picture?#{width_and_height}"
+    else
+      avatar.url(size).to_s
+    end
+  end
+
 end

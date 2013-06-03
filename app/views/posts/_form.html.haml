@@ -9,7 +9,7 @@
           %h3= @topic.title
     %tr
       %td{:valign => "top"}
-        .author_avatar= image_tag current_user.avatar.url(:size_150_by_150).to_s
+        .author_avatar= image_tag current_user.avatar_url(:size_150_by_150)
 
       %td
         .field

@@ -7,7 +7,7 @@
     %ul.nav.nav-tabs
       %li
         .user-highlight
-          = image_tag @user_profile.avatar.url(:size_150_by_150).to_s
+          = image_tag @user_profile.avatar_url(:size_150_by_150)
           %h4= @user_profile.full_name
           .rating-wrapper
             - (1..5).each do |i|

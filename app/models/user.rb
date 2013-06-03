@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 
   alias_method :profile, :user_profile
 
-  delegate :avatar, to: :user_profile, :allow_nil => true
+  delegate :avatar_url, to: :user_profile, :allow_nil => true
 
   before_create :build_default_user_profile
 
@@ -65,9 +65,6 @@ class User < ActiveRecord::Base
                          email: auth.info.email,
                          password: Devise.friendly_token[0,20])
     end
-
-    p auth.extra.raw_info
-
     user.profile.update_attributes(:first_name => auth.extra.raw_info.first_name, :last_name => auth.extra.raw_info.last_name)
     user
   end

@@ -8,7 +8,7 @@
       %tr
         %td
           .user_profile_avatar_block
-            = image_tag @user_profile.avatar.url(:size_150_by_150).to_s, :id => 'user_profile_avatar'
+            = image_tag @user_profile.avatar_url(:size_150_by_150), :id => 'user_profile_avatar'
             %span.user_profile_avatar_desc Change Avatar
           = f.file_field :avatar, :class => 'hidden', :id => 'user_profile_avatar_upload', :onchange => 'readAvatar(this);'
 

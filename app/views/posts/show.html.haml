@@ -42,7 +42,7 @@
   }
 
   .post .user_info .avatar {
-    background: url("#{@post.user.avatar.url(:size_150_by_150).to_s}") no-repeat scroll 0% 0% / cover transparent;
+    background: url("#{@post.user.avatar_url(:size_150_by_150)}") no-repeat scroll 0% 0% / cover transparent;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
     height: 120px;
