@@ -10,7 +10,7 @@ class Post < ActiveRecord::Base
   attr_accessible :content, :photo
 
   # PostgreSQL default order is 'id desc'
-  default_scope order('id')
+  scope :recent_updated, order('updated_at DESC')
 
   alias_method :review, :post_review
   alias_method :likes, :post_likes
