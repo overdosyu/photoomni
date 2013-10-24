@@ -3,10 +3,7 @@
   - user_posts = user.posts.reverse
 
   .title
-    - if @user_profile.first_name
-      = "#{@user_profile.first_name}'s Gallery"
-    - else
-      Empty Gallery
+    = "#{user.display_short_name}'s Gallery"
 
   - if user_posts.present?
     = render partial: "carousel"
@@ -25,8 +22,6 @@
       %span.rating-wrapper
         - (1..5).each do |i|
           %span.rating{:value => "#{i}"}
-
-
 
   .tabbable.tabs-left
     %ul.nav.nav-tabs

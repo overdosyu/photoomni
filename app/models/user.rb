@@ -36,8 +36,7 @@ class User < ActiveRecord::Base
     if profile.present? && profile.first_name.present?
       profile.first_name.truncate(max_length)
     else
-      email_name = email.replaceAll("@.*", "")
-      email_name.truncate(max_length)
+      email[/^[^@]*/].truncate(max_length)
     end
   end
 

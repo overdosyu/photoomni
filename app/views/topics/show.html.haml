@@ -4,7 +4,7 @@
   - @topic.posts.each do |post|
     %table
       %tr
-        %td{:valign => "top"}
+        %td.user-highlight
           .author_avatar= image_tag post.user.avatar_url(:size_150_by_150), :class => "portrait"
           .author_name
             %a{:href => user_profile_path(post.user.profile.id)}= post.user.display_short_name
@@ -49,6 +49,12 @@
 
   form.post_review span.rating.bright {
     background-image: url(/assets/star-bright.png);
+  }
+
+  .user-highlight {
+    vertical-align: top;
+    text-align: center;
+    padding-right: 10px;
   }
 
 :javascript
