@@ -5,10 +5,10 @@
     %table
       %tr
         %td{:valign => "top"}
-          .author_avatar= image_tag post.user.avatar_url(:size_150_by_150)
-        %td
+          .author_avatar= image_tag post.user.avatar_url(:size_150_by_150), :class => "portrait"
           .author_name
             %a{:href => user_profile_path(post.user.profile.id)}= post.user.display_name
+        %td
           - if post.photo_file_name.present?
             .photo= image_tag post.photo.url(:size_640_by).to_s
           .content= post.content

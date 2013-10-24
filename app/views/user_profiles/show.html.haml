@@ -1,20 +1,35 @@
 .container-for-user-info
   - user = @user_profile.user
+  - user_posts = user.posts.reverse
 
-  %h3= "#{@user_profile.first_name}'s Profile"
+  .title
+    - if @user_profile.first_name
+      = "#{@user_profile.first_name}'s Gallery"
+    - else
+      Empty Gallery
+
+  - if user_posts.present?
+    = render partial: "carousel"
+  - else
+    .empty-carousel
+
+  .user-highlight
+    %span.avatar
+      = image_tag @user_profile.avatar_url(:size_150_by_150), :class => "portrait"
+    .top-section
+      %span.profile-full-name
+        = user.display_name
+    .middle-section
+      %span.likes-wrapper= "#{user.likes_count} likes"
+    .bottom-section
+      %span.rating-wrapper
+        - (1..5).each do |i|
+          %span.rating{:value => "#{i}"}
+
+
 
   .tabbable.tabs-left
     %ul.nav.nav-tabs
-      %li
-        .user-highlight
-          = image_tag @user_profile.avatar_url(:size_150_by_150)
-          %h4= @user_profile.full_name
-          .rating-wrapper
-            - (1..5).each do |i|
-              %span.rating{:value => "#{i}"}
-          %br
-          %br
-          .likes-wrapper= "#{user.likes_count} likes"
       %li.active
         %a{"data-toggle" => "tab", :href => "#user-gallery"} Gallery
       %li
@@ -26,7 +41,7 @@
         %p
           %ul
             #posts_container
-              - user.posts.each do |post|
+              - user_posts.each do |post|
                 - if post.photo.present?
                   .post_container
                     .thumbnail
@@ -34,13 +49,13 @@
       #user-topics.tab-pane
         %p
           %ul
-            - user.topics.each do |topic|
+            - user.topics.reverse.each do |topic|
               %li
                 %a{:href => topic.url}= "[#{topic.title}]"
       #user-posts.tab-pane
         %p
           %ul
-            - user.posts.each do |post|
+            - user_posts.each do |post|
               %li
                 %a{:href => post.url}= "[#{post.title}] #{post.content.truncate(30)}"
 
@@ -49,17 +64,64 @@
     width: 980px;
   }
 
-  .container-for-user-info td {
-    padding-right: 30px;
-    vertical-align: top;
-  }
-
-  .user-highlight {
+  .empty-carousel {
+    width: 980px;
+    height: 340px;
+    background-color: #ddd;
+    color: #fff;
+    border: 3px dashed gray;
     margin-bottom: 20px;
   }
 
-  .rating-wrapper {
+  .title {
+    color: white;
     margin-left: 20px;
+    margin-bottom: -35px;
+    font-size: 24px;
+    z-index: 10;
+    position: relative;
+  }
+
+  .user-highlight {
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: -70px;
+  }
+
+  .user-highlight .portrait {
+    width: 120px;
+    height: 120px;
+    border-radius: 200px;
+    border: 8px solid #FFF;
+    z-index: 1;
+    position: relative;
+    float: left;
+    margin-left: 50px;
+    margin-right: 15px;
+  }
+
+  .user-highlight .top-section {
+    padding-top: 60px;
+    height: 25px;
+  }
+
+  .user-highlight .middle-section {
+    margin-top: 10px;
+    height: 25px;
+  }
+
+  .user-highlight .bottom-section {
+    margin-top: 10px;
+    height: 25px;
+  }
+
+  .user-highlight .profile-full-name {
+    font-size: 150%;
+  }
+
+  .rating-wrapper {
+    margin-left: -130px;
+    position: absolute;
   }
 
   .rating-wrapper span.rating {
@@ -77,12 +139,31 @@
     background-image: url(/assets/star-bright.png);
   }
 
-  .likes-wrapper {
-    margin-left: 20px;
-  }
-
   .post_container {
     margin-bottom: 10px;
+  }
+
+  .carousel img {
+    height: auto;
+  }
+
+  .crop {
+    max-width: 980px;       
+    max-height: 350px;
+    overflow: hidden;
+    -webkit-transition: max-width .5s ease-out;  /* Saf3.2+, Chrome */
+    -moz-transition: max-width .5s ease-out;  /* FF4+ */
+    -ms-transition: max-width .5s ease-out;  /* IE10? */
+    -o-transition: max-width .5s ease-out;  /* Opera 10.5+ */
+    transition: max-width .5s ease-out;    
+  }
+
+  .crop img {
+    -webkit-transition: margin-top .5s ease-out;  /* Saf3.2+, Chrome */
+    -moz-transition: margin-top .5s ease-out;  /* FF4+ */
+    -ms-transition: margin-top .5s ease-out;  /* IE10? */
+    -o-transition: margin-top .5s ease-out;  /* Opera 10.5+ */
+    transition: margin-top .5s ease-out;
   }
 
 :javascript
@@ -91,4 +172,15 @@
     var this_span = $('.rating-wrapper').find('span[value = "#{user.rating}"]');
     this_span.prevAll().andSelf().addClass('bright');
     this_span.nextAll().removeClass('bright');
+
+    var imageHeight, cropHeight, overlap, container = $('.crop');  
+    function centerImage() {
+      imageHeight = container.find('img').height();
+      cropHeight = container.height();
+      overlap = (cropHeight - imageHeight) / 2;
+      container.find('img').css('margin-top', overlap);
+    }
+     
+    $(window).on("load resize", centerImage);
+ 
   });

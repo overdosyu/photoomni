@@ -6,9 +6,11 @@
     = javascript_include_tag "application"
     = csrf_meta_tag
   %body
-    = render '/shared/nav_bar'
-    = yield
-    = render '/shared/footer'
+    .nav_ber
+      = render '/shared/nav_bar'
+    .body
+      = yield
+      = render '/shared/footer'
 
     / feedback tab from http://getbarometer.com/
     %script{:src => "http://getbarometer.s3.amazonaws.com/assets/barometer/javascripts/barometer.js", :type => "text/javascript"}

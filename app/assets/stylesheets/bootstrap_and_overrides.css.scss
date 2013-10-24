@@ -21,8 +21,23 @@ body {
 
 /* Downsize the brand/project name a bit */
 .navbar .brand {
-  font-weight: bold;
   color: red;
+  text-shadow: none;
+}
+
+.navbar-inner {
+  background-color: rgba(240,242,244,.85);
+  background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop(0%, rgba(0,0,0,0.00)), color-stop(100%, rgba(0,0,0,0.00)));
+  background-image: -webkit-linear-gradient(270deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.00) 100%);
+  background-image: linear-gradient(180deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.00) 100%);
+}
+
+.navbar .dropdown-toggle {
+  margin-top: 6px;
+}
+
+.navbar .dropdown-toggle .caret {
+  margin-top: 15px !important;
 }
 
 /* Navbar links: increase padding for taller navbar */
@@ -35,10 +50,6 @@ body {
 -------------------------------------------------- */
 
 /* Carousel base class */
-.carousel {
-  margin-bottom: 60px;
-}
-
 .carousel .container {
   position: relative;
   z-index: 9;
@@ -90,7 +101,7 @@ body {
 }
 
 .container.content {
-  margin-top: 50px;
+  padding-top: 50px;
   margin-left:auto;
   margin-right:auto;
   width:80%;
@@ -150,6 +161,12 @@ body {
 }
 
 
+/* Alerts
+------------------------- */
+
+.alert {
+  margin-top: 16px;
+}
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */

@@ -1,0 +1,24 @@
+#myCarousel.carousel.slide
+  - user = @user_profile.user
+  - posts = user.posts.find(:all, :order => "id desc", :limit => 5)
+  / Indicators
+  %ol.carousel-indicators
+    - posts.each_with_index do |post, index|
+      - if index == 0
+        %li.active{"data-slide-to" => "0", "data-target" => "#myCarousel"}
+      - else
+        %li{"data-slide-to" => "#{index}", "data-target" => "#myCarousel"}
+
+  / Carousel items
+  .carousel-inner
+    - posts.each_with_index do |post, index|
+      - if index == 0
+        .crop.item.active
+          = image_tag post.photo.url.to_s
+      - else
+        .crop.item.crop
+          = image_tag post.photo.url.to_s
+
+  / Carousel nav
+  %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
+  %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;

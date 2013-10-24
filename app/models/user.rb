@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     sum==0 ? 0 : (sum.to_f/count).ceil
   end
 
+  def avatar_url(size)
+    profile.avatar_url(size)
+  end
+
   # count of likes come from others
   def likes_count
     count = 0

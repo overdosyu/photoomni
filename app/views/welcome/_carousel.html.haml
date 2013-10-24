@@ -1,8 +1,10 @@
 #myCarousel.carousel.slide
+  / Indicators
   %ol.carousel-indicators
     %li.active{"data-slide-to" => "0", "data-target" => "#myCarousel"}
     %li{"data-slide-to" => "1", "data-target" => "#myCarousel"}
     %li{"data-slide-to" => "2", "data-target" => "#myCarousel"}
+
   / Carousel items
   .carousel-inner
     .item.active
@@ -26,6 +28,7 @@
           %h1 Share your pictures and your humor...
           %p.lead Don't be afraid to share your non-perfect pictures, someone will fix it, or make fun on it ^_____^
           %a.btn.btn-large.btn-primary{:href => new_user_registration_path} Sign Up today
+
   / Carousel nav
   %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
   %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
