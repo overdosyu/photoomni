@@ -31,6 +31,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def display_short_name
+    max_length = 10
+    if profile.present? && profile.first_name.present?
+      profile.first_name.truncate(max_length)
+    else
+      email_name = email.replaceAll("@.*", "")
+      email_name.truncate(max_length)
+    end
+  end
+
   def rating
     sum = 0
     count = 0
