@@ -27,12 +27,12 @@
             = render partial: "/post_reviews/form", locals: { post: post }
 
 
-
-.pinned_footer
-  .content
-    = 'Show your PS talent to the world!! '
-    &nbsp;&nbsp;
-    %a.btn.btn-primary{:href => new_topic_post_path(@topic.id)} Post for This Topic
+- if current_user
+  .pinned_footer
+    .content
+      = 'Show your PS talent to the world!! '
+      &nbsp;&nbsp;
+      %a.btn.btn-primary{:href => new_topic_post_path(@topic.id)} Post for This Topic
 
 :css
   form.post_review span.rating {

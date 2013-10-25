@@ -1,6 +1,6 @@
 #myCarousel.carousel.slide
   - user = @user_profile.user
-  - posts = user.posts.find(:all, :order => "id desc", :limit => 5)
+  - posts = user.posts.find(:all, :conditions => "photo_file_name IS NOT NULL", :order => "id desc", :limit => 5)
   / Indicators
   %ol.carousel-indicators
     - posts.each_with_index do |post, index|
